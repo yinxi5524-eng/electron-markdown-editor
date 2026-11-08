@@ -17,6 +17,7 @@
 | 界面语言 | 英文（New/Open/Save…） | 中文（新建/打开/保存…） |
 | 主题色 | 深蓝 #2c3e50 + 蓝 #3498db | 深青绿 #1e3a35 + 青绿 #16a085 |
 | 弹窗文案 | 英文（Unsaved Changes…） | 中文（未保存的更改…） |
+| 应用图标 | Electron 默认图标 | 自制 Markdown 主题图标（`assets/icon.ico`，7 种尺寸） |
 | 修复 | electron 版本写作 `^latest`（npm 无法安装） | 修正为 `^33.0.0`，补充 electron-builder 打包配置 |
 
 ---
@@ -86,11 +87,12 @@
 
 ```text
 electron-markdown-editor/
-├── src/                # 🛠️ Source code for the application
-├── assets/             # 🖼️ Images, icons, and other assets
-├── package.json        # 📦 Project dependencies and scripts
-├── README.md           # 📄 Project documentation
-└── main.js             # ⚙️ Electron main process
+├── src/                # 🛠️ 渲染进程：界面、样式、逻辑
+├── assets/             # 🖼️ 图片与图标（icon.ico / icon.png）
+├── package.json        # 📦 依赖、脚本与 electron-builder 配置
+├── README.md           # 📄 项目说明
+├── main.js             # ⚙️ Electron 主进程
+└── preload.js          # 🔌 主进程与渲染进程之间的安全桥接
 ```
 
 ---
@@ -117,6 +119,30 @@ npm run dist
 > 💡 国内网络提示：electron-builder 下载 Electron 打包底包较慢或超时时，设置镜像：
 > ```bash
 > ELECTRON_MIRROR="https://registry.npmmirror.com/-/binary/electron/" npm run dist
+> ```
+
+### 分步打包（Windows 普通账号必看）
+
+electron-builder 首次打包需要解压 `winCodeSign` 工具包，其中含 macOS 的符号链接文件。Windows 非管理员账号没有创建符号链接的权限（报错 `Cannot create symbolic link: 客户端没有所需的特权`），直接 `npm run dist` 会失败。
+
+解决办法是分三步走，绕过需要符号链接的解压步骤：
+
+```bash
+# 1. 只生成免安装目录（不涉及 exe 资源编辑）
+npm run dist:dir
+
+# 2. 用 rcedit 手动写入图标与版本信息
+#    rcedit 位于 electron-builder 缓存目录，也可从 https://github.com/electron/rcedit 下载
+rcedit "dist/win-unpacked/<产品名>.exe" --set-icon assets/icon.ico
+rcedit "dist/win-unpacked/<产品名>.exe" \
+  --set-version-string ProductName "<产品名>" \
+  --set-file-version "1.0.0" --set-product-version "1.0.0"
+
+# 3. 基于已改好的目录封装安装包
+npm run dist:repack
+```
+
+> 另一种做法：Windows 设置 → 隐私和安全性 → 开发者选项 → 打开「开发人员模式」，之后可直接用 `npm run dist` 一条命令完成。
 > ```
 
 **注意**：`dist/`、`*.exe` 等构建产物已被 `.gitignore` 排除，不进入仓库，仅通过 GitHub Releases 分发。

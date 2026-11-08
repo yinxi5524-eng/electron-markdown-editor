@@ -7,7 +7,9 @@
   "scripts": {
     "start": "electron .",
     "watch": "nodemon --exec electron .",
-    "dist": "electron-builder --win"
+    "dist": "electron-builder --win",
+    "dist:dir": "electron-builder --win dir",
+    "dist:repack": "electron-builder --win nsis portable --prepackaged dist/win-unpacked"
   },
   "devDependencies": {
     "electron": "^33.0.0",
@@ -23,10 +25,11 @@
       "main.js",
       "preload.js",
       "src/**/*",
+      "assets/icon.png",
       "package.json"
     ],
     "win": {
-      "signAndEditExecutable": false,
+      "icon": "assets/icon.ico",
       "target": [
         {
           "target": "nsis",
