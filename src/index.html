@@ -1,42 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Markdown Notes</title>
+  <title>2026年底的风吹来一个markdown编辑器</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github.min.css">
 </head>
 <body>
   <div class="app-container">
     <div class="toolbar">
-      <button id="new-btn">New</button>
-      <button id="open-btn">Open</button>
-      <button id="save-btn">Save</button>
-      <button id="preview-btn">Toggle Preview</button>
-      <button id="about-btn">About</button>
+      <button id="new-btn">新建</button>
+      <button id="open-btn">打开</button>
+      <button id="save-btn">保存</button>
+      <button id="preview-btn">切换预览</button>
+      <button id="about-btn">关于</button>
     </div>
     <div class="editor-container">
-      <textarea id="editor" placeholder="Write your markdown here..."></textarea>
+      <textarea id="editor" placeholder="在这里写下你的 Markdown…"></textarea>
       <div id="preview" class="hidden"></div>
     </div>
   </div>
   <div class="status-bar">
-    <span class="file-path" id="file-path">Untitled</span>
+    <span class="file-path" id="file-path">未命名</span>
     <span class="modified-indicator" id="modified-indicator"></span>
   </div>
   <div class="app-footer">
     <div class="social-links"></div>
-    <a href="https://github.com/Achintha-999" target="_blank" class="social-link github">
+    <a href="https://github.com/yinxi5524-eng" target="_blank" class="social-link github">
         <img src="./images/github.png" alt="Author" class="footer-photo">
-        <span>Achintha-999</span>
+        <span>yinxi5524-eng</span>
     </a>
     &nbsp;
     &nbsp;
     &nbsp;
     <div class="author-info">
       <img src="./images/image2.png" alt="Author" class="footer-photo">
-      <span>Created by Achintha-999</span>
+      <span>由 yinxi5524-eng 改造</span>
     </div>
   </div>
   <script src="renderer.js"></script>
