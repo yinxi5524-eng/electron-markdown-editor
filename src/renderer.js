@@ -84,9 +84,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const fileInfo = await window.electronAPI.getFileInfo();
         if (fileInfo.isModified) {
           const result = await window.electronAPI.showSaveDialog({
-            title: 'Unsaved Changes',
-            message: 'Do you want to save your changes before continuing?',
-            buttons: ['Save', 'Discard', 'Cancel']
+            title: '未保存的更改',
+            message: '继续之前要保存你的更改吗？',
+            buttons: ['保存', '放弃', '取消']
           });
           
           if (result.response === 0) { // Save
@@ -109,11 +109,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const modifiedIndicator = document.getElementById('modified-indicator');
         
         if (filePathElement) {
-            filePathElement.textContent = fileInfo.path ? 
-                fileInfo.path.split(/[\\/]/).pop() : 'Untitled';
+            filePathElement.textContent = fileInfo.path ?
+                fileInfo.path.split(/[\\/]/).pop() : '未命名';
         }
         if (modifiedIndicator) {
-            modifiedIndicator.textContent = fileInfo.isModified ? 'Modified' : '';
+            modifiedIndicator.textContent = fileInfo.isModified ? '已修改' : '';
         }
     }
 

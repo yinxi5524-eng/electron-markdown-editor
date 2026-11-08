@@ -38,7 +38,7 @@ function createWindow() {
 function updateWindowTitle() {
   if (!mainWindow) return;
   
-  const appName = 'Markdown Notes';
+  const appName = '2026年底的风吹来一个markdown编辑器';
   if (currentFile.path) {
     const filename = path.basename(currentFile.path);
     mainWindow.setTitle(`${filename}${currentFile.isModified ? ' *' : ''} - ${appName}`);
@@ -67,8 +67,8 @@ app.whenReady().then(() => {
 
   ipcMain.handle('open-file', async () => {
     const { filePaths } = await dialog.showOpenDialog({
-      title: 'Open Markdown File',
-      filters: [{ name: 'Markdown Files', extensions: ['md', 'markdown'] }],
+      title: '打开 Markdown 文件',
+      filters: [{ name: 'Markdown 文件', extensions: ['md', 'markdown'] }],
       properties: ['openFile']
     });
 
@@ -114,9 +114,9 @@ app.whenReady().then(() => {
   ipcMain.handle('show-save-dialog', async (_, options) => {
     const { response } = await dialog.showMessageBox({
       type: 'question',
-      buttons: options.buttons || ['Save', 'Discard', 'Cancel'],
-      title: options.title || 'Unsaved Changes',
-      message: options.message || 'You have unsaved changes. Save before continuing?',
+      buttons: options.buttons || ['保存', '放弃', '取消'],
+      title: options.title || '未保存的更改',
+      message: options.message || '你有未保存的更改，继续前要保存吗？',
       defaultId: 0,
       cancelId: 2
     });
@@ -133,7 +133,7 @@ app.whenReady().then(() => {
 // Helper function for save dialog
 async function showSaveDialog() {
   const { filePath } = await dialog.showSaveDialog({
-    title: 'Save Markdown File',
+    title: '保存 Markdown 文件',
     defaultPath: 'untitled.md',
     filters: [{ name: 'Markdown Files', extensions: ['md'] }]
   });
